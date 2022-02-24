@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:12
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    volumes:
+      - ./db:/var/lib/postgresql/data
+  odoo14:
+    image: odoo:15
+    depends_on:
+      - db
+    ports:
+      - 0.0.0.0:80:8069
+    links:
+      - db:db
+    #volumes:
+    #  - ./config:/etc/odoo
+    #  - ./addons:/mnt/extra-addons
